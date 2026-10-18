@@ -1,11 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crane</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1020">
+  <meta name="description" content="Crane — agente inteligente para confiabilidade e otimização de recursos em aplicações conteinerizadas no Kubernetes.">
+  <title>Crane — Orquestração inteligente</title>
+  <style>
+    :root{--bg:#080d19;--panel:#10182a;--panel2:#0d1424;--line:rgba(173,193,235,.14);--text:#eef3ff;--muted:#a2aec8;--blue:#78a9ff;--cyan:#67e8f9;--violet:#a78bfa;--green:#72f0bd;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -10%,rgba(68,95,190,.22),transparent 40%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(var(--max),calc(100% - 44px));margin:auto}.nav{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(173,193,235,.08)}.brand{display:flex;align-items:center;gap:11px;font-size:1.12rem;font-weight:750;letter-spacing:-.03em}.logo{height:36px;width:36px;border-radius:12px;background:linear-gradient(135deg,var(--cyan),var(--blue) 55%,var(--violet));display:grid;place-items:center;color:#07101f;box-shadow:0 0 32px #67e8f92a}.logo svg{width:24px;height:24px}.brand small{display:block;font-size:.65rem;color:var(--muted);font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-top:-4px}.navlinks{display:flex;gap:27px;align-items:center;color:#c0cbe1;font-size:.9rem}.navlinks a:hover{color:white}.nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid rgba(120,169,255,.45);border-radius:10px;padding:10px 16px;font-weight:650;font-size:.9rem;background:rgba(120,169,255,.1);transition:.2s}.nav-cta:hover,.button:hover{transform:translateY(-2px);background:rgba(120,169,255,.18)}.menu{display:none;background:none;border:1px solid var(--line);color:white;border-radius:9px;padding:8px 11px}.hero{padding:92px 0 76px;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:48px;min-height:570px}.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:6px 11px;border:1px solid rgba(103,232,249,.22);border-radius:99px;background:rgba(103,232,249,.06);color:#a9f4fb;font-size:.77rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}h1{font-size:clamp(2.8rem,5.6vw,5rem);line-height:1.02;letter-spacing:-.065em;margin:22px 0 23px;font-weight:800}h1 span{background:linear-gradient(100deg,#8eddfd 4%,#91adff 48%,#c4a7ff 94%);-webkit-background-clip:text;background-clip:text;color:transparent}.lead{font-size:1.12rem;line-height:1.8;color:#b5c1d9;max-width:600px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:29px}.button.primary{background:linear-gradient(105deg,#75dff3,#8eabff);border-color:transparent;color:#091222;box-shadow:0 8px 34px #6eaaff25}.button.secondary{background:rgba(255,255,255,.025);border-color:var(--line);color:#e7edfb}.microcopy{margin-top:20px;color:#7f8da9;font-size:.8rem}.visual{position:relative;min-width:0}.orb{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(103,232,249,.17),rgba(120,169,255,.08) 38%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}.dash{position:relative;border:1px solid rgba(160,187,245,.2);background:linear-gradient(145deg,rgba(20,31,54,.94),rgba(10,17,31,.96));border-radius:20px;padding:21px;box-shadow:0 30px 90px #0006,0 0 60px #7c9cff0b;transform:perspective(1200px) rotateY(-4deg) rotateX(2deg)}.dash-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:17px;border-bottom:1px solid var(--line)}.dash-title{font-size:.87rem;font-weight:700}.dash-sub{color:#8492ae;font-size:.72rem;margin-top:2px}.live{font-size:.7rem;color:var(--green);display:flex;align-items:center;gap:7px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:17px 0}.metric{padding:12px 10px;background:#ffffff05;border:1px solid #ffffff0a;border-radius:11px}.metric-label{font-size:.69rem;color:#93a1bd}.metric-value{font-size:1.25rem;font-weight:750;letter-spacing:-.04em;margin:5px 0}.metric-delta{font-size:.68rem;color:var(--green)}.chartbox{border:1px solid #ffffff0d;border-radius:12px;background:#080e1a;padding:15px 13px 8px}.chart-head{display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:12px}.chart-head span:last-child{color:#8492ae}.chart{height:115px;width:100%;display:block}.chart-labels{display:flex;justify-content:space-between;color:#6f7d98;font-size:.65rem;margin-top:2px}.agent-row{display:flex;align-items:center;gap:12px;margin-top:13px;padding:12px;background:rgba(114,240,189,.06);border:1px solid rgba(114,240,189,.14);border-radius:11px}.agent-icon{width:34px;height:34px;display:grid;place-items:center;background:#72f0bd15;color:var(--green);border-radius:9px;font-size:1.1rem}.agent-copy{flex:1}.agent-copy strong{font-size:.77rem;display:block}.agent-copy small{font-size:.68rem;color:#8492ae}.agent-state{font-size:.7rem;color:var(--green)}.float-tag{position:absolute;padding:10px 13px;background:#111c31;border:1px solid #9cb9ef2c;border-radius:11px;box-shadow:0 12px 30px #0004;font-size:.75rem;color:#dbe7ff}.float-tag b{color:var(--cyan);font-weight:750}.tag-one{left:-23px;top:20%}.tag-two{right:-18px;bottom:15%}.section{padding:85px 0}.section-head{max-width:710px;margin:0 auto 43px;text-align:center}.kicker{color:var(--cyan);font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;font-weight:750}.section h2{font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.05em;line-height:1.12;margin:13px 0 15px}.section-head p{color:var(--muted);font-size:1.03rem;margin:0}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{padding:25px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#111a2caa,#0b1220aa);transition:.22s}.feature:hover{transform:translateY(-4px);border-color:#78a9ff55}.feature-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;color:var(--cyan);background:linear-gradient(135deg,#67e8f918,#a78bfa18);border:1px solid #a4c3ff19}.feature h3{font-size:1.06rem;margin:19px 0 8px}.feature p{color:var(--muted);font-size:.91rem;margin:0}.approach{background:linear-gradient(180deg,transparent,rgba(22,34,59,.38),transparent);border-top:1px solid #ffffff08;border-bottom:1px solid #ffffff08}.approach-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:65px;align-items:center}.approach-copy p{color:var(--muted)}.steps{display:grid;gap:12px}.step{display:flex;gap:16px;align-items:flex-start;padding:18px;border:1px solid var(--line);border-radius:13px;background:#0d1526a8}.step-num{width:33px;height:33px;flex:0 0 33px;display:grid;place-items:center;border-radius:10px;background:#7da9ff16;color:#9dc2ff;font-weight:750;font-size:.85rem}.step h3{margin:0 0 4px;font-size:.96rem}.step p{margin:0;color:var(--muted);font-size:.86rem}.stack{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}.pill{padding:9px 14px;border-radius:9px;border:1px solid var(--line);background:#ffffff04;color:#c6d2e9;font-size:.84rem}.research-note{margin:35px auto 0;max-width:800px;border:1px solid #9fafff24;background:linear-gradient(110deg,#6a8bff0b,#67e8f909);padding:20px 23px;border-radius:14px;color:#bac7e0;font-size:.9rem}.research-note strong{color:#e8efff}.cta{padding:35px 0 95px}.cta-card{position:relative;overflow:hidden;text-align:center;padding:54px 25px;border:1px solid #8fb4ff2c;border-radius:22px;background:radial-gradient(ellipse at 50% 0%,#8c9dff19,transparent 60%),linear-gradient(130deg,#111b31,#0b1221)}.cta-card:before{content:"";position:absolute;width:300px;height:300px;border:1px solid #8db3ff0b;border-radius:50%;left:-150px;bottom:-220px;box-shadow:0 0 0 35px #8db3ff05,0 0 0 70px #8db3ff04}.cta-card h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.05em;margin:0 0 13px}.cta-card p{color:var(--muted);max-width:620px;margin:0 auto 25px}.footer{border-top:1px solid #ffffff0b;padding:25px 0 32px;color:#7786a2;font-size:.79rem}.footer-inner{display:flex;justify-content:space-between;gap:18px;align-items:center}.footer-brand{color:#dce6fa;font-weight:700}.footer a:hover{color:#dce6fa}.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;gap:55px;padding-top:70px}.hero-copy{max-width:720px}.visual{max-width:600px;width:100%;margin:auto}.feature-grid{grid-template-columns:repeat(2,1fr)}.approach-grid{grid-template-columns:1fr;gap:25px}.tag-one{left:-12px}.tag-two{right:-8px}}
+    @media(max-width:620px){.wrap{width:min(var(--max),calc(100% - 30px))}.nav{height:70px}.navlinks{display:none;position:absolute;top:70px;left:15px;right:15px;padding:18px;background:#10182a;border:1px solid var(--line);border-radius:13px;z-index:10;flex-direction:column;align-items:stretch;gap:15px}.navlinks.open{display:flex}.nav-cta{justify-content:center}.menu{display:block}.hero{padding:56px 0 55px;min-height:unset}.lead{font-size:1rem}h1{font-size:3.25rem}.dash{padding:14px;transform:none}.metrics{gap:6px}.metric{padding:9px 7px}.metric-value{font-size:1.05rem}.tag-one{top:-22px;left:8px}.tag-two{right:3px;bottom:-20px}.section{padding:65px 0}.feature-grid{grid-template-columns:1fr}.section-head{margin-bottom:28px}.footer-inner{align-items:flex-start;flex-direction:column}.cta-card{padding:40px 20px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+  </style>
 </head>
 <body>
-<h1>Crane</h1>
+  <header class="wrap nav">
+    <a class="brand" href="#inicio" aria-label="Crane, início">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18V6l8 8 8-8v12M4 6h4m8 0h4M4 18h4m8 0h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="14" r="2" fill="currentColor"/></svg></span>
+      <span>crane<small>intelligent orchestration</small></span>
+    </a>
+    <nav class="navlinks" id="navlinks" aria-label="Navegação principal">
+      <a href="#sobre">O projeto</a><a href="#abordagem">Abordagem</a><a href="#tecnologias">Tecnologias</a><a class="nav-cta" href="#contato">Conheça a pesquisa <span aria-hidden="true">↗</span></a>
+    </nav>
+    <button class="menu" id="menu" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  </header>
+
+  <main>
+    <section class="wrap hero" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> Pesquisa em andamento · Cloud-native</div>
+        <h1>Mais inteligência.<br>Mais <span>confiabilidade.</span></h1>
+        <p class="lead">Crane é um projeto de pesquisa que investiga o uso de aprendizado por reforço para apoiar decisões de alocação de recursos e melhorar a confiabilidade de aplicações conteinerizadas no Kubernetes.</p>
+        <div class="hero-actions"><a class="button primary" href="#sobre">Explore o projeto <span aria-hidden="true">↓</span></a><a class="button secondary" href="#abordagem">Como funciona <span aria-hidden="true">↗</span></a></div>
+        <div class="microcopy">Aprendizado por reforço · Observabilidade · Orquestração de contêineres</div>
+      </div>
+      <div class="visual" aria-label="Ilustração conceitual de painel de monitoramento">
+        <div class="orb"></div><div class="float-tag tag-one">✦ <b>Agente inteligente</b></div>
+        <div class="dash">
+          <div class="dash-top"><div><div class="dash-title">Visão do ambiente</div><div class="dash-sub">Kubernetes · visão conceitual</div></div><div class="live"><span class="pulse"></span> MONITORANDO</div></div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-label">CPU</div><div class="metric-value">68<span style="font-size:.7em;color:#9aa9c4">%</span></div><div class="metric-delta">↗ Métrica observada</div></div>
+            <div class="metric"><div class="metric-label">Memória</div><div class="metric-value">54<span style="font-size:.7em;color:#9aa9c4">%</span></div><div class="metric-delta">↗ Métrica observada</div></div>
+            <div class="metric"><div class="metric-label">Latência</div><div class="metric-value">142<span style="font-size:.65em;color:#9aa9c4"> ms</span></div><div class="metric-delta">↘ Exemplo ilustrativo</div></div>
+          </div>
+          <div class="chartbox"><div class="chart-head"><span>Comportamento da aplicação</span><span>janela ilustrativa</span></div>
+            <svg class="chart" viewBox="0 0 440 115" preserveAspectRatio="none" role="img" aria-label="Gráfico ilustrativo de métricas ao longo do tempo"><defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#78a9ff" stop-opacity=".28"/><stop offset="1" stop-color="#78a9ff" stop-opacity="0"/></linearGradient></defs><g stroke="#8ca1c4" stroke-opacity=".12" stroke-dasharray="3 5"><path d="M0 20H440M0 48H440M0 76H440M0 104H440"/></g><path d="M0 83 C20 78 28 87 46 68 S72 49 91 61 S122 79 142 54 S175 60 193 43 S225 48 245 57 S273 30 295 38 S325 61 346 43 S375 20 394 34 S422 28 440 17 L440 115H0Z" fill="url(#fill)"/><path d="M0 83 C20 78 28 87 46 68 S72 49 91 61 S122 79 142 54 S175 60 193 43 S225 48 245 57 S273 30 295 38 S325 61 346 43 S375 20 394 34 S422 28 440 17" fill="none" stroke="#86b7ff" stroke-width="2.5" stroke-linecap="round"/><circle cx="394" cy="34" r="4" fill="#67e8f9" stroke="#0b1220" stroke-width="2"/></svg>
+            <div class="chart-labels"><span>início</span><span>tempo →</span><span>agora</span></div>
+          </div>
+          <div class="agent-row"><div class="agent-icon">✧</div><div class="agent-copy"><strong>Loop de decisão do agente</strong><small>Observar → avaliar → agir → aprender</small></div><div class="agent-state">● conceitual</div></div>
+        </div>
+        <div class="float-tag tag-two">Kubernetes <b>·</b> Reinforcement Learning</div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="wrap"><div class="section-head reveal"><div class="kicker">O projeto</div><h2>Orquestração que aprende com o ambiente</h2><p>Em aplicações distribuídas, a carga varia e os recursos são limitados. O Crane investiga como agentes de aprendizado por reforço podem orientar decisões adaptativas a partir de métricas observadas.</p></div>
+        <div class="feature-grid">
+          <article class="feature reveal"><div class="feature-icon">⌁</div><h3>Observabilidade</h3><p>Utiliza métricas do ambiente e da aplicação — como CPU, memória e tempo de resposta — para caracterizar o estado observado.</p></article>
+          <article class="feature reveal"><div class="feature-icon">✧</div><h3>Aprendizado por reforço</h3><p>Investiga agentes que aprendem uma política de decisão por meio da interação com o ambiente e de uma função de recompensa.</p></article>
+          <article class="feature reveal"><div class="feature-icon">⇄</div><h3>Ações de recursos</h3><p>Estuda decisões relacionadas à configuração de recursos de contêineres, buscando equilibrar desempenho e uso eficiente.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section approach" id="abordagem">
+      <div class="wrap approach-grid">
+        <div class="approach-copy reveal"><div class="kicker">Abordagem de pesquisa</div><h2>Do sinal à decisão</h2><p>O Crane organiza o problema como um ciclo de decisão sequencial. O agente recebe uma representação do estado, seleciona uma ação e observa as consequências para orientar o aprendizado.</p><p>O objetivo é avaliar experimentalmente o comportamento das políticas — não presumir ganhos antes da validação.</p></div>
+        <div class="steps">
+          <article class="step reveal"><div class="step-num">01</div><div><h3>Observar</h3><p>Coletar métricas de execução e representar o estado atual da aplicação.</p></div></article>
+          <article class="step reveal"><div class="step-num">02</div><div><h3>Decidir</h3><p>O agente seleciona uma ação com base na política aprendida.</p></div></article>
+          <article class="step reveal"><div class="step-num">03</div><div><h3>Executar e medir</h3><p>Aplicar a ação no ambiente experimental e observar a resposta do sistema.</p></div></article>
+          <article class="step reveal"><div class="step-num">04</div><div><h3>Avaliar e aprender</h3><p>Calcular a recompensa e analisar o comportamento ao longo dos experimentos.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tecnologias"><div class="wrap"><div class="section-head reveal"><div class="kicker">Ecossistema</div><h2>Construído para experimentação</h2><p>Ferramentas utilizadas no ambiente experimental e no desenvolvimento do protótipo.</p><div class="stack"><span class="pill">Kubernetes</span><span class="pill">Python</span><span class="pill">Gymnasium</span><span class="pill">Stable-Baselines3</span><span class="pill">Prometheus / Metrics Server</span><span class="pill">Locust</span><span class="pill">Docker</span><span class="pill">Terraform</span></div></div>
+      <div class="research-note reveal"><strong>Sobre a pesquisa</strong><br>Crane é um protótipo de pesquisa acadêmica voltado a experimentos de orquestração em um cluster Kubernetes. Resultados, métricas e comparações devem ser interpretados no contexto da configuração experimental utilizada.</div>
+    </div></section>
+
+    <section class="cta" id="contato"><div class="wrap"><div class="cta-card reveal"><div class="kicker">Crane research project</div><h2>Confiabilidade começa com boas decisões.</h2><p>Uma investigação sobre como aprendizado por reforço pode contribuir para a gestão adaptativa de recursos em aplicações conteinerizadas.</p><a class="button primary" href="#inicio">Voltar ao início ↑</a></div></div></section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><div><span class="footer-brand">crane</span> <span>· Projeto de pesquisa</span></div><div>Aprendizado por reforço aplicado à orquestração de contêineres</div><a href="#inicio">Voltar ao topo ↑</a></div></footer>
+  <script>
+    const menu = document.getElementById('menu');
+    const nav = document.getElementById('navlinks');
+    menu.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); menu.textContent = open ? '✕' : '☰'; });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.textContent='☰'; }));
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), {threshold: .12});
+      items.forEach(item => observer.observe(item));
+    } else { items.forEach(item => item.classList.add('visible')); }
+  </script>
 </body>
 </html>
